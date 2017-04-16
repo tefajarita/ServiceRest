@@ -84,25 +84,34 @@ app.controller('MainCtrl', function($scope, formatedFunctions) {
        {genero:"todo"}
      ]
      };
+     $scope.resultados = {
+       model:null,
+       resultadosDisponibles:[
+          {result:"10"},
+          {result:"20"},
+          {result:"30"}
+        ]
+        };
   $scope.paises = {
     model:null,
     paisesDisponibles:[
-       {pais:"AU"},
-         {pais:"BR"},
-         {pais:"CA"},
-         {pais:"CH"},
-         {pais:"DE"},
-           {pais:"DK"},
-          {pais:"ES"},
-           {pais:"FI"},
-           {pais:"FR"},
-         {pais:"GB"},
-           {pais:"IE"},
-         {pais:"IR"},
-         {pais:"NL"},
-        {pais:"NZ"},
-        {pais:"TR"},
-         {pais:"US"}]
+      {pais:"AU"},
+        {pais:"BR"},
+        {pais:"CA"},
+        {pais:"CH"},
+        {pais:"DE"},
+          {pais:"DK"},
+         {pais:"ES"},
+          {pais:"FI"},
+          {pais:"FR"},
+        {pais:"GB"},
+          {pais:"IE"},
+        {pais:"IR"},
+        {pais:"NL"},
+       {pais:"NZ"},
+       {pais:"TR"},
+        {pais:"US"}
+       ]
         };
 
 $scope.loadUser = function(){
