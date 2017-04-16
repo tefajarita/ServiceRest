@@ -34,6 +34,25 @@ app.service('formatedFunctions', function() {
                   var personObj = {
                       img : person.picture.large,
                       name: person.name.first +' '+person.name.last,
+                      gender:person.gender,
+                      email: person.email
+                  };
+                  personList.push(personObj);
+                  render(personObj);
+              });
+          });
+    };
+    this.loadResult=function(rs){
+      $.ajax({
+          method: "GET",
+          url: "https://randomuser.me/api/?results="+rs
+      })
+          .done(function(response) {
+              $.each(response.results, function (index, person) {
+                  var personObj = {
+                      img : person.picture.large,
+                      name: person.name.first +' '+person.name.last,
+                      gender:person.gender,
                       email: person.email
                   };
                   personList.push(personObj);
@@ -44,13 +63,14 @@ app.service('formatedFunctions', function() {
     this.loadAll=function(rs,gen,nat){
       $.ajax({
           method: "GET",
-          url: "https://randomuser.me/api/?results="+rs+"&nat="+nat+"gender="+gen
+          url: "https://randomuser.me/api/?results="+rs+"&nat="+nat+"&gender="+gen
       })
           .done(function(response) {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
                       name: person.name.first +' '+person.name.last,
+                      gender:person.gender,
                       email: person.email
                   };
                   personList.push(personObj);
@@ -64,7 +84,7 @@ app.service('formatedFunctions', function() {
 });
 
 var render = function (person) {
-    var personElement = '<div class="card" style="width: 20rem;">' +
+    var personElement = '<div class="col-md-2 col-sm-4 col-xs-12 card" style="width: 20rem;">' +
         '<img class="card-img-top" src="' + person.img + '"alt="Card image cap"> ' +
         '<div class="card-block">'+
         '<h4 class="card-title">' + person.name + '</h4> ' +
@@ -115,10 +135,22 @@ app.controller('MainCtrl', function($scope, formatedFunctions) {
         };
 
 $scope.loadUser = function(){
+  $(list).empty()
   var genero=$scope.generos.model;
-  if (genero!=null) {
+  var result= $scope.resultados.model;
+  var pais1=$scope.paises.model;
+  if (genero!=null  && result!=null && pais1!=null) {
+
+      formatedFunctions.loadAll(result,genero,pais1);
+  }else if (genero!=null && result==null && pais1==null) {
       formatedFunctions.loadGender(genero);
-  }
+    }else if (genero==null && result!=null && pais1==null) {
+      formatedFunctions.loadResult(result);
+    }else if (genero==null && result==null && pais1!=null) {
+      formatedFunctions.loadNat(pais1);
+    }else {
+      alert("Escoge alguno de los filtros")
+    }
 
 
 };
