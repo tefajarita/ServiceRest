@@ -1,0 +1,17 @@
+body{
+  background-image: url("../img/fondo.jpg");
+   background-color: #cccccc;
+   position: relative;
+   width: 100%;
+   height: 610px;
+   margin-left: auto;
+   margin-right: auto;  
+}
+
+.card{
+  margin: 2px;
+}
+
+#form{
+  align-content: center;
+}

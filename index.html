@@ -2,44 +2,56 @@
 <html ng-app="Perfiles">
   <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <meta name="viewreport" content="">
+
   </head>
 
   <body ng-controller="MainCtrl">
 
 
    <div class="container">
-     <div id="form" class="row">
-        <div class="col-md-3">
-          <select class="selectpicker" name="selectedGenero" id="selectedGenero" ng-model="generos.model" >
+     <div id="form" class="col-lg-offset-1 col-sm-offset-2 col-xs-offset-1 jumbotron  row">
+       <h1 class="text-center">Buscador de personas</h1>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <label for="genero">Seleccione un genero:</label>
+          <select class="selectpicker dropup" data-stylename="selectedGenero" id="selectedGenero" ng-model="generos.model" >
               <option ng-repeat="option in generos.generosDisponibles" value="{{option.genero}}">{{option.genero}}</option>
             </select>
 
         </div>
-        <div class="col-md-3">
-          <select class="selectpicker" name="selectedPais" id="selectedPais" ng-model="paises.model">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <labe for="pais">Seleccione un pais:</labe>
+          <select class="selectpicker dropup" name="selectedPais" id="selectedPais" ng-model="paises.model">
               <option ng-repeat="option in paises.paisesDisponibles" value="{{option.pais}}">{{option.pais}}</option>
             </select>
 
         </div>
-        <div class="col-md-3">
-          <select class="selectpicker"name="selectedResults" id="selectedResults" ng-model="resultados.model">
+        <div class="col-md-4  col-sm-6 col-xs-12">
+          <label for="resultado">Seleccione numero de resultados:</label>
+          <select class="selectpicker dropup"name="selectedResults" id="selectedResults" ng-model="resultados.model">
               <option ng-repeat="option in resultados.resultadosDisponibles" value="{{option.result}}">{{option.result}}</option>
             </select>
         </div>
-        <div class="col-md-3 input-group">
+        <div class="col-md-2  col-sm-6 col-xs-12 input-group">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="loadUser()" >Go!</button>
+            <button class="btn btn-primary" type="button" ng-click="loadUser()" >Go!</button>
           </span>
         </div>
      </div>
-      <div class="row" id="list"></div>
+     <div id="messages" class="hide row" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div id="messages_content"></div>
+            </div>
+
+      <div class="col-lg-offset-3 row" id="list"></div>
 
    </div>
+   <script type="text/javascript" src="js/app.js"></script>
    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="js/app.js"></script>
+
   </body>
 </html>

@@ -6,16 +6,16 @@ var app = angular.module('Perfiles', []);
 app.service('formatedFunctions', function() {
 
 
-    this.loadGender=function(generer){
+    this.loadGender=function(generer,rs){
       $.ajax({
           method: "GET",
-          url: "https://randomuser.me/api/?gender="+generer
+          url: "https://randomuser.me/api/?gender="+generer+"&results="+rs
       })
           .done(function(response) {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -24,16 +24,16 @@ app.service('formatedFunctions', function() {
               });
           });
     };
-    this.loadNat=function(nat){
+    this.loadNat=function(nat,rs){
       $.ajax({
           method: "GET",
-          url: "https://randomuser.me/api/?nat="+nat
+          url: "https://randomuser.me/api/?results="+rs"&nat="+nat
       })
           .done(function(response) {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -51,7 +51,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -69,7 +69,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -84,7 +84,7 @@ app.service('formatedFunctions', function() {
 });
 
 var render = function (person) {
-    var personElement = '<div class="col-md-2 col-sm-4 col-xs-12 card" style="width: 20rem;">' +
+      var personElement = '<div class="card col-md-3 col-sm-12 col-xs-12 " style="width: 20rem;">' +
         '<img class="card-img-top" src="' + person.img + '"alt="Card image cap"> ' +
         '<div class="card-block">'+
         '<h4 class="card-title">' + person.name + '</h4> ' +
@@ -139,15 +139,20 @@ $scope.loadUser = function(){
   var genero=$scope.generos.model;
   var result= $scope.resultados.model;
   var pais1=$scope.paises.model;
+
   if (genero!=null  && result!=null && pais1!=null) {
 
       formatedFunctions.loadAll(result,genero,pais1);
-  }else if (genero!=null && result==null && pais1==null) {
-      formatedFunctions.loadGender(genero);
+  }else if (genero!=null && result!=null && pais1==null) {
+      formatedFunctions.loadGender(genero,result);
+    }else if (genero!=null && result==null) {
+      alert("Seleccione ¿Cuantos resultados quieren que te aparezcan?");
     }else if (genero==null && result!=null && pais1==null) {
       formatedFunctions.loadResult(result);
-    }else if (genero==null && result==null && pais1!=null) {
-      formatedFunctions.loadNat(pais1);
+    }else if (genero==null && result!=null && pais1!=null) {
+      formatedFunctions.loadNat(pais1,result);
+    }else if (result==null && pais1!=null) {
+      alert("Seleccione ¿Cuantos resultados quieren que te aparezcan?");
     }else {
       alert("Escoge alguno de los filtros")
     }
