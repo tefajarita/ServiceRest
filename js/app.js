@@ -15,7 +15,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: ' '+person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -51,7 +51,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.first +' '+person.name.last,
+                      name: ' '+person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
