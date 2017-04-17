@@ -15,7 +15,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.title+' '+person.name.first +' '+person.name.last,
+                      name: person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -27,13 +27,13 @@ app.service('formatedFunctions', function() {
     this.loadNat=function(nat,rs){
       $.ajax({
           method: "GET",
-          url: "https://randomuser.me/api/?results="+rs"&nat="+nat
+          url: "https://randomuser.me/api/?results="+rs+"&nat="+nat
       })
           .done(function(response) {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.title+' '+person.name.first +' '+person.name.last,
+                      name: ' '+person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -51,7 +51,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.title+' '+person.name.first +' '+person.name.last,
+                      name: person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -69,7 +69,7 @@ app.service('formatedFunctions', function() {
               $.each(response.results, function (index, person) {
                   var personObj = {
                       img : person.picture.large,
-                      name: person.name.title+' '+person.name.first +' '+person.name.last,
+                      name: ' '+person.name.title+' '+person.name.first +' '+person.name.last,
                       gender:person.gender,
                       email: person.email
                   };
@@ -88,7 +88,6 @@ var render = function (person) {
         '<img class="card-img-top" src="' + person.img + '"alt="Card image cap"> ' +
         '<div class="card-block">'+
         '<h4 class="card-title">' + person.name + '</h4> ' +
-        '<h4 class="card-title">' + person.gender + '</h4> ' +
         '<a href="#">' + person.email + '</a> ' +
         '</div>' +
         '</div>';
@@ -130,7 +129,8 @@ app.controller('MainCtrl', function($scope, formatedFunctions) {
         {pais:"NL"},
        {pais:"NZ"},
        {pais:"TR"},
-        {pais:"US"}
+        {pais:"US"},
+        {pais:"todo"}
        ]
         };
 
@@ -147,12 +147,15 @@ $scope.loadUser = function(){
       formatedFunctions.loadGender(genero,result);
     }else if (genero!=null && result==null) {
       alert("Seleccione ¿Cuantos resultados quieren que te aparezcan?");
+
+
+
     }else if (genero==null && result!=null && pais1==null) {
       formatedFunctions.loadResult(result);
     }else if (genero==null && result!=null && pais1!=null) {
       formatedFunctions.loadNat(pais1,result);
     }else if (result==null && pais1!=null) {
-      alert("Seleccione ¿Cuantos resultados quieren que te aparezcan?");
+        alert("Seleccione ¿Cuantos resultados quieren que te aparezcan?");
     }else {
       alert("Escoge alguno de los filtros")
     }
